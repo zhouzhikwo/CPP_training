@@ -3,6 +3,8 @@
 计算任意两个日期之间的天数
 */
 
+#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_NONSDTC_NO_DEPRECATE
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
