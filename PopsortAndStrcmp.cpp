@@ -20,7 +20,7 @@ int mystrcmp(const char *p1, const char *p2)
 template <class T>
 void MyPopsort(T *pList, int listSize)
 {
-	int temp;
+	T temp;
 	for (int i = 0; i < listSize; i++)
 	{
 		for (int j = i + 1; j < listSize; j++)
@@ -35,6 +35,7 @@ void MyPopsort(T *pList, int listSize)
 	}
 	return;
 }
+
 void main(void)
 {
 	const char *p1 = "stringA";
@@ -55,7 +56,7 @@ void main(void)
 	MyPopsort(pList1, listSize1);
 	for (int i = 0; i < listSize; i++)
 	{
-		cout << pList[i] << ' ';
+		cout << pList1[i] << ' ';
 	}
 	cout << endl;
 
