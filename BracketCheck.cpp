@@ -43,7 +43,8 @@ Status Push(SqStack &S, ElemType cha)
         S.top = S.base + S.stacksize;
         S.stacksize += INCREMENT;
     }
-    *S.top++ = cha; // 将e添加到栈顶
+    *S.top++; 
+    *S.top = cha; // 将e添加到栈顶
     return OK;
 }
 
@@ -88,7 +89,7 @@ int BracketMatch(char *str)
     ElemType cha;
     ElemType *p = str;
     InitStack(S);
-    while (*p != '#') // 遍历字符串中的字符
+    while (*p != '\0') // 遍历字符串中的字符
     {
         switch (*p)
         {
