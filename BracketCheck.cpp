@@ -128,10 +128,15 @@ int BracketMatch(char *str)
         return ERROR;
 }
 
-/* 主函数 */
+/*  
+    主函数 
+    若括号匹配正常则返回OK（1），
+    括号匹配异常则输出ERROR（0），
+    内存溢出则返回OVERFLOW（-1）。
+*/
 void main()
 {
-    ElemType *str = "{{[[]]()}}#";
+    ElemType str[] = "{{[[]]()}}#"; // ，
     cout << BracketMatch(str) << endl;
     system("pause");
     return;
