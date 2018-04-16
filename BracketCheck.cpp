@@ -11,69 +11,73 @@ using namespace std;
 typedef char ElemType;
 typedef int Status;
 
-/* å®šä¹‰ç»“æ„ä½“ */
+/* ¶¨Òå½á¹¹Ìå */
 struct SqStack
 {
-    ElemType *base; // æ ˆåº•æŒ‡é’ˆ
-    ElemType *top;  // æ ˆé¡¶æŒ‡é’ˆ
-    int stacksize;  // å½“å‰æ ˆé•¿
+    ElemType *base; // Õ»µ×Ö¸Õë
+    ElemType *top;  // Õ»¶¥Ö¸Õë
+    int stacksize;  // µ±Ç°Õ»³¤
 };
 
-/* åˆå§‹åŒ–æ ˆï¼Œæ„é€ ä¸€ä¸ªç©ºæ ˆS */
+/* ³õÊ¼»¯Õ»£¬¹¹ÔìÒ»¸ö¿ÕÕ»S */
 Status InitStack(SqStack &S)
 {
     S.base = new ElemType[INIT_SIZE * sizeof(ElemType)];
-    if (!S.base) // åˆ†é…å†…å­˜å¤±è´¥
+    if (!S.base) // ·ÖÅäÄÚ´æÊ§°Ü
         exit(OVERFLOW);
     S.top = S.base;
     S.stacksize = INIT_SIZE;
 }
 
-/* å…ƒç´ å…¥æ ˆ */
+/* ÔªËØÈëÕ» */
 Status Push(SqStack &S, ElemType cha)
 {
-    if (S.top - S.base >= S.stacksize) // è‹¥æ ˆæ»¡ï¼Œåˆ™è¿½åŠ ç©ºé—´
+    if (S.top - S.base >= S.stacksize) // ÈôÕ»Âú£¬Ôò×·¼Ó¿Õ¼ä
     {
         ElemType *Temp = new ElemType[(S.stacksize + INCREMENT) * sizeof(ElemType)];
         memcpy(Temp, S.base, S.stacksize * sizeof(ElemType));
         delete[] S.base;
         S.base = Temp;
-        if (!S.base) // åˆ†é…å†…å­˜å¤±è´¥
+        if (!S.base) // ·ÖÅäÄÚ´æÊ§°Ü
             exit(OVERFLOW);
         S.top = S.base + S.stacksize;
         S.stacksize += INCREMENT;
     }
-    *S.top++; 
-    *S.top = cha; // å°†eæ·»åŠ åˆ°æ ˆé¡¶
+    
+	*S.top=cha;
+	S.top++;  // ½«eÌí¼Óµ½Õ»¶¥
     return OK;
 }
 
-/* å‡ºæ ˆ */
+/* ³öÕ» */
 Status Pop(SqStack &S, ElemType &cha)
 {
     if (S.top == S.base)
         return ERROR;
     S.top--;
     cha = *S.top;
+	
 }
 
-/* å–æ ˆé¡¶å…ƒç´ ï¼Œä½†ä¸å‡ºæ ˆ */
+/* È¡Õ»¶¥ÔªËØ£¬µ«²»³öÕ» */
 Status GetTop(SqStack &S, ElemType &cha)
 {
     if (S.top == S.base)
         return ERROR;
+	S.top--;
     cha = *S.top;
+	S.top++;
     return OK;
 }
 
-/* æ¸…ç©ºæ ˆ*/
+/* Çå¿ÕÕ»*/
 Status ClearStack(SqStack &S)
 {
     S.top = S.base;
     return OK;
 }
 
-/* é”€æ¯æ ˆ */
+/* Ïú»ÙÕ» */
 Status DestroyStack(SqStack &S)
 {
     delete[] S.base;
@@ -82,14 +86,14 @@ Status DestroyStack(SqStack &S)
     return OK;
 }
 
-/* æ‹¬å·åŒ¹é…å‡½æ•°(å¯¹å­—ç¬¦ä¸²dträ¸­çš„æ–‡æœ¬è¿›è¡Œæ‹¬å·åŒ¹é…æ£€æŸ¥) */
+/* À¨ºÅÆ¥Åäº¯Êı(¶Ô×Ö·û´®dtrÖĞµÄÎÄ±¾½øĞĞÀ¨ºÅÆ¥Åä¼ì²é) */
 int BracketMatch(char *str)
 {
-    SqStack S; // å®šä¹‰ä¸€ä¸ªæ ˆ
+    SqStack S; // ¶¨ÒåÒ»¸öÕ»
     ElemType cha;
     ElemType *p = str;
     InitStack(S);
-    while (*p != '\0') // éå†å­—ç¬¦ä¸²ä¸­çš„å­—ç¬¦
+    while (*p != '\0') // ±éÀú×Ö·û´®ÖĞµÄ×Ö·û
     {
         switch (*p)
         {
@@ -97,24 +101,24 @@ int BracketMatch(char *str)
         case '[':
         case '(':
             Push(S, *p);
-            break; // å‡ºç°å·¦æ‹¬å·åˆ™ä¸€å¾‹è¿›æ ˆ
+            break; // ³öÏÖ×óÀ¨ºÅÔòÒ»ÂÉ½øÕ»
         case '}':
             GetTop(S, cha);
-            if (cha == '{') // æ ˆé¡¶å·¦èŠ±æ‹¬å·å‡ºæ ˆ
+            if (cha == '{') // Õ»¶¥×ó»¨À¨ºÅ³öÕ»
                 Pop(S, cha);
             else
                 return ERROR;
             break;
         case ']':
             GetTop(S, cha);
-            if (cha == '[') // æ ˆé¡¶å·¦æ–¹æ‹¬å·å‡ºæ ˆ
+            if (cha == '[') // Õ»¶¥×ó·½À¨ºÅ³öÕ»
                 Pop(S, cha);
             else
                 return ERROR;
             break;
         case ')':
             GetTop(S, cha);
-            if (cha == '(') // æ ˆé¡¶å·¦åœ†æ‹¬å·å‡ºæ ˆ
+            if (cha == '(') // Õ»¶¥×óÔ²À¨ºÅ³öÕ»
                 Pop(S, cha);
             else
                 return ERROR;
@@ -128,16 +132,20 @@ int BracketMatch(char *str)
         return ERROR;
 }
 
-/*  
-    ä¸»å‡½æ•° 
-    è‹¥æ‹¬å·åŒ¹é…æ­£å¸¸åˆ™è¿”å›OKï¼ˆ1ï¼‰ï¼Œ
-    æ‹¬å·åŒ¹é…å¼‚å¸¸åˆ™è¾“å‡ºERRORï¼ˆ0ï¼‰ï¼Œ
-    å†…å­˜æº¢å‡ºåˆ™è¿”å›OVERFLOWï¼ˆ-1ï¼‰ã€‚
-*/
+/*
+    Ö÷º¯Êı                        
+    ÈôÀ¨ºÅÆ¥ÅäÕı³£Ôò·µ»ØOK£¨1£©£¬ 
+    À¨ºÅÆ¥ÅäÒì³£ÔòÊä³öERROR£¨0£©£¬
+    ÄÚ´æÒç³öÔò·µ»ØOVERFLOW£¨-2£©¡£
+ */
 void main()
 {
-    ElemType str[] = "{{[[]]()}}#"; // ï¼Œ
-    cout << BracketMatch(str) << endl;
+    ElemType str1[] = "{{[[]]()}}#"; 
+    cout <<"Check1:"<< BracketMatch(str1) << endl;
+
+	ElemType str2[] = "{{[[]])}}#"; 
+    cout <<"Check2:"<< BracketMatch(str2) << endl;
+
     system("pause");
     return;
 }
