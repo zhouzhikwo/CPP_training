@@ -43,9 +43,9 @@ Status Push(SqStack &S, ElemType cha)
         S.top = S.base + S.stacksize;
         S.stacksize += INCREMENT;
     }
-    
-	*S.top=cha;
-	S.top++;  // 将e添加到栈顶
+
+    *S.top = cha;
+    S.top++; // 将e添加到栈顶
     return OK;
 }
 
@@ -56,7 +56,6 @@ Status Pop(SqStack &S, ElemType &cha)
         return ERROR;
     S.top--;
     cha = *S.top;
-	
 }
 
 /* 取栈顶元素，但不出栈 */
@@ -64,9 +63,9 @@ Status GetTop(SqStack &S, ElemType &cha)
 {
     if (S.top == S.base)
         return ERROR;
-	S.top--;
+    S.top--;
     cha = *S.top;
-	S.top++;
+    S.top++;
     return OK;
 }
 
@@ -140,11 +139,11 @@ int BracketMatch(char *str)
  */
 void main()
 {
-    ElemType str1[] = "{{[[]]()}}#"; 
-    cout <<"Check1:"<< BracketMatch(str1) << endl;
+    ElemType str1[] = "{{[[]]()}}#";
+    cout << "Check1:" << BracketMatch(str1) << endl;
 
-	ElemType str2[] = "{{[[]])}}#"; 
-    cout <<"Check2:"<< BracketMatch(str2) << endl;
+    ElemType str2[] = "{{[[]])}}#";
+    cout << "Check2:" << BracketMatch(str2) << endl;
 
     system("pause");
     return;
