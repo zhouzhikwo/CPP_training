@@ -1,16 +1,18 @@
-#include<stdbool.h>
-#include<math.h>
-#include<stdio.h>
-#include<stdlib.h>
+#include <iostream>
+#include <math.h>
+#include <stdlib.h>
+using namespace std;
 
-bool is_prime(int n) {
+bool is_prime(int n)
+{
 	int divisor;
 
 	if (n <= 1)
 		return false;
-	for ( divisor = 2; divisor <= sqrt(n); divisor++)
+	for (divisor = 2; divisor <= sqrt(n); divisor++)
 	{
-		if (n%divisor == 0) {
+		if (n % divisor == 0)
+		{
 			return false;
 		}
 	}
@@ -18,16 +20,18 @@ bool is_prime(int n) {
 	return true;
 }
 
-int main() {
+int main()
+{
 	int i, n = 0;
-	for ( i = 2; i < 100; i++)
+	for (i = 2; i < 100; i++)
 	{
-		if (is_prime(i)) {
-			printf("%d ", i);
+		if (is_prime(i))
+		{
+			cout << i;
 			n++;
-			if (n%5==0)
+			if (n % 5 == 0)
 			{
-				printf("\n");
+				cout << endl;
 			}
 		}
 	}
