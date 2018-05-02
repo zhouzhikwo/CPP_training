@@ -17,6 +17,7 @@
 ** Ground2Space 大地坐标系和空间直角坐标系的相互转换
 ** hongbaiheiqiu 取红白黑球的方法
 ** KaisaScrpty 凯撒加密算法
+** LCA 找二叉树中最小祖先，2017三星校招算法题
 ** matrix 矩阵类
 ** PI 迭代法求PI的值
 ** pingfanggen 牛顿法求平方根
